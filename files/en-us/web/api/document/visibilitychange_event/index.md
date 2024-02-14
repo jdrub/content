@@ -30,7 +30,7 @@ A generic {{domxref("Event")}}.
 
 The event doesn't include the document's updated visibility status, but you can get that information from the document's {{domxref("Document.visibilityState", "visibilityState")}} property.
 
-This event fires with a `visibilityState` of `hidden` when a user navigates to a new page, switches tabs, closes the tab, minimizes or closes the browser, or, on mobile, switches from the browser to a different app. Transitioning to `hidden` is the last event that's reliably observable by the page, so developers should treat it as the likely end of the user's session (for example, for [sending analytics data](/en-US/docs/Web/API/Navigator/sendBeacon)).
+This event fires with a `visibilityState` of `hidden` when a user switches tabs, closes the tab, minimizes or closes the browser, or, on mobile, switches from the browser to a different app. Transitioning to `hidden` is the last event that's reliably observable by the page, so developers should treat it as the likely end of the user's session (for example, for [sending analytics data](/en-US/docs/Web/API/Navigator/sendBeacon)).
 
 The transition to `hidden` is also a good point at which pages can stop making UI updates and stop any tasks that the user doesn't want to have running in the background.
 
@@ -48,19 +48,6 @@ document.addEventListener("visibilitychange", () => {
     backgroundMusic.pause();
   }
 });
-```
-
-### Sending end-of-session analytics on transitioning to hidden
-
-This example treats the transition to `hidden` as the end of the user's session, and sends the appropriate analytics using the {{domxref("Navigator.sendBeacon()")}}
-API:
-
-```js
-document.onvisibilitychange = () => {
-  if (document.visibilityState === "hidden") {
-    navigator.sendBeacon("/log", analyticsData);
-  }
-};
 ```
 
 ## Specifications
